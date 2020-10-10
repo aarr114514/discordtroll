@@ -143,7 +143,7 @@
         },1000);
         g_interval_id.push(interval_id);
         function main(){
-            nowStatus.text("DM送信中...");
+            nowStatus.text("DM sends letters in...);
             var max = Number(input_num_dm.val());
             makeArray(max).forEach(function(o){
                 tokens.filter(function(token){
@@ -165,7 +165,7 @@
         btn_startDM.show();
         btn_stopDM.hide();
         while(g_interval_id.length) clearInterval(g_interval_id.pop());
-        nowStatus.text("DMの送信を中断しました。");
+        nowStatus.text("DMs have been interrupted.");
     }
     var g_avatar;
     // アバターの設定
@@ -252,7 +252,7 @@
     var h = $("<div>").appendTo($("body").css({
         "text-align": "center"
     }));
-    $("<div>",{text:"最終更新：2020/08/12 13:06"}).appendTo(h);
+    $("<div>",{text:"Last Update：2020/08/12 13:06"}).appendTo(h);
     $("<h1>",{text:"You can use Token to troll of Discord."}).appendTo(h);
     h.append("Click here");
     $("<a>",{
@@ -260,7 +260,7 @@
         href: "https://shunshun94.github.io/shared/sample/discordAccountToken",
         target: "_blank"
     }).appendTo(h);
-    h.append("を参照してください。<br><br>");
+    h.append("for more information.<br><br>");
     function addTextarea(placeholder){
         function shape(){
             var text = t.val();
