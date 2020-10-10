@@ -3,7 +3,7 @@
     // 招待を受ける
     function enter(){
         var m = input_invidedURL.val().match(/\/([a-zA-Z0-9]+)\/?$/);
-        if(!m) return alert("招待リンクを設定してください。");
+        if(!m) return alert("Please set the URL.");
         var url = "https://discordapp.com/api/v6/invites/" + m[1];
         splitLine(input_token.val()).map(function(v,i){
             var xhr = new XMLHttpRequest();
@@ -20,7 +20,7 @@
     ["PUT","DELETE"].forEach(function(method){
         xhr_func[method] = function(){
             var url = input_PUT_URL.val();
-            if(!url) return alert("リクエストURLを設定してください。");
+            if(!url) return alert("Please set the request URL.");
             splitLine(input_token.val()).map(function(v,i){
                 var xhr = new XMLHttpRequest();
                 xhr.open( method, url );
@@ -114,7 +114,7 @@
             };
             xhr.send(JSON.stringify(data));
         }
-        nowStatus.text("DMのidを取得中...");
+        nowStatus.text("Getting ID :)");
         var id_list = {};
         var tokens = splitLine(input_token.val());
         tokens.map(function(v,i){
@@ -153,7 +153,7 @@
                         sendDM(v,id_list[v]);
                         if(o === max - 1 && i === a.length - 1){
                             stopDM();
-                            nowStatus.text("DMの送信が終了しました。");
+                            nowStatus.text(" has been sent.");
                         }
                     },makeTime(i,o,a.length)));
                 });
@@ -170,7 +170,7 @@
     var g_avatar;
     // アバターの設定
     function set_avatar(){
-        alert("設定するアバター画像を選択してください。");
+        alert("Choose your avatar image");
         getBase64fromFile(function(avatar){
             g_avatar = avatar;
             $("<img>",{src: avatar}).appendTo(view_avatar_elm.empty());
@@ -178,7 +178,7 @@
     }
     // プロフィールの更新
     function update_profile(){
-        if(!g_avatar) return alert("アバターを設定してください。");
+        if(!g_avatar) return alert("Choose your avatar image");
         splitLine(input_token.val()).map(function(v,i){
             var data = {
                 //username: input_username.val(),
@@ -253,10 +253,10 @@
         "text-align": "center"
     }));
     $("<div>",{text:"最終更新：2020/08/12 13:06"}).appendTo(h);
-    $("<h1>",{text:"Tokenを使って、Discordの荒らしができます。"}).appendTo(h);
-    h.append("Tokenの取得の方法は、");
+    $("<h1>",{text:"You can use Token to troll of Discord."}).appendTo(h);
+    h.append("Click here");
     $("<a>",{
-        text: "こちら",
+        text: "how to get token",
         href: "https://shunshun94.github.io/shared/sample/discordAccountToken",
         target: "_blank"
     }).appendTo(h);
@@ -279,7 +279,7 @@
             return v;
         });
     }
-    var input_token = addTextarea("Tokenを改行で区切って入力してください。").change(function(){
+    var input_token = addTextarea("Enter the Tokens separated by new line.").change(function(){
         var ar = [];
         input_token.val(splitLine($(this).val()).filter(function(v){
             if(/[^0-9a-zA-Z\.\-_]/.test(v)) return false;
@@ -289,7 +289,7 @@
             return true;
         }).join('\n'));
     });
-    var input_time = addInput("リクエスト送信間隔","[秒]").attr({
+    var input_time = addInput("Request send interval","[seconds]").attr({
         type: "number",
         value: 0.5,
         max: 5,
@@ -301,51 +301,51 @@
         return (a + b * len) * n * 1000;
     }
     h.append("<br><br><br><br>");
-    var input_invidedURL = addInput("招待リンク","https://discord.gg/bJ9V3bd");
-    addBtn("招待を受ける", enter);
+    var input_invidedURL = addInput("invite link","https://discord.gg/bJ9V3bd");
+    addBtn("come in", enter);
     h.append("<br><br><br><br>");
-    var input_PUT_URL = addInput("リアクションのRequest URL(認証突破用)","https://discord.com/api/v6/channels/741843145997942826/messages/741846164055523360/reactions/%F0%9F%91%8D/%40me");
-    addBtn("PUT(つける)", xhr_func.PUT);
-    addBtn("DELETE(外す)", xhr_func.DELETE);
+    var input_PUT_URL = addInput("Request URL(For breaking the authentication)","https://discord.com/api/v6/channels/741843145997942826/messages/741846164055523360/reactions/%F0%9F%91%8D/%40me");
+    addBtn("PUT", xhr_func.PUT);
+    addBtn("DELETE", xhr_func.DELETE);
     h.append("<br><br><br><br>");
-    $("<div>",{text:"リアクション形式の認証を突破できます。"}).appendTo(h);
-    $("<div>",{text:"Request URLはリアクションを押したとき、開発者ツールのNetworkタブから取得できます。"}).appendTo(h);
-    $("<div>",{text:"リアクション情報はサーバーから抜けた後も保持されています。"}).appendTo(h);
-    $("<div>",{text:"再度、サーバーに入って認証を受けるとき、一度リアクションを外す必要があります。"}).appendTo(h);
-    h.append("<br><br><br><br>");
-    //---------------------------------------------------------------------------------
-    var input_url = addTextarea("発言する場所のURLを改行で区切って入力してください。\nhttps://discord.com/channels/741210331262484531/741845468853829662");
-    h.append("<br>");
-    addBtn("入力中", typing);
-    addBtn("サーバーから脱退", exit);
+    $("<div>",{text:"You can get past the reaction-style authentication."}).appendTo(h);
+    $("<div>",{text:"You can get the Request URL from the Network tab of the developer tools when you press the reaction。"}).appendTo(h);
+    $("<div>",{text:"Reaction information is retained after you leave the server."}).appendTo(h);
+    $("<div>",{text:"When you enter the server again to authenticate, you need to remove the reaction once."}).appendTo(h);
     h.append("<br><br><br><br>");
     //---------------------------------------------------------------------------------
-    var input_saying = addTextarea("発言内容を入力してください。\n空の場合は点呼を取ります。");
+    var input_url = addTextarea("Please enter the URL of the place where you are going to speak, separated by a new line.\nhttps://discord.com/channels/741210331262484531/741845468853829662");
     h.append("<br>");
-    addBtn("発言", say);
-    var random_flag = addBtnToggle("発言内容の語尾にランダムな文字を追加");
+    addBtn("halfway of typing", typing);
+    addBtn("Leaving the Server", exit);
+    h.append("<br><br><br><br>");
+    //---------------------------------------------------------------------------------
+    var input_saying = addTextarea("Please enter your message.\nIf empty, take a roll call.");
+    h.append("<br>");
+    addBtn("message", say);
+    var random_flag = addBtnToggle("Add a random character to the end of a statement");
     h.append("<br><br><br><br>");
     //---------------------------------------------------------------------------------
     var input_userID = addInput("userID", "731744964291330088");
-    var input_saying_dm = addTextarea("DMで送る内容を入力してください。");
+    var input_saying_dm = addTextarea("Please enter what you want to send in directmessage");
     h.append("<br>");
-    var input_num_dm = addInput("DMを送る回数").attr({
+    var input_num_dm = addInput("Number of times to send a DM").attr({
         type: "number",
         value: 1,
         max: 20,
         min: 1,
         step: 1,
     });
-    var btn_startDM = addBtn("DM送信開始", startDM);
-    var btn_stopDM = addBtn("DM送信停止", stopDM).hide();
+    var btn_startDM = addBtn("Start DM sends", startDM);
+    var btn_stopDM = addBtn("Stop DM sends", stopDM).hide();
     var nowStatus = $("<div>").appendTo(h);
     h.append("<br><br><br><br>");
     //---------------------------------------------------------------------------------
     //var input_username = addInput("プロフィールの名前");
     //var input_pass = addInput("現在のパスワード");
     // var input_pass_new = addInput("新しいパスワード(省略可)");
-    addBtn("アバターの設定", set_avatar);
+    addBtn("Avatar Settings", set_avatar);
     var view_avatar_elm = $("<div>").appendTo(h);
-    addBtn("プロフィールの更新", update_profile);
+    addBtn("update profile", update_profile);
     //---------------------------------------------------------------------------------
 })();
